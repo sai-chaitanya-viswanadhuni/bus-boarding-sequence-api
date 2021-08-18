@@ -12,6 +12,7 @@ import com.boarding.entity.BusBooking;
 import com.boarding.entity.Ticket;
 
 @Component
+@SuppressWarnings("unchecked")
 public class BoardingSequenceFinder {
 
 	public BoardingSequenceFinder() {
@@ -85,7 +86,7 @@ public class BoardingSequenceFinder {
 		//
 		for (int i = seatRowIndexes.size() - 1; i >= 0; i--) {
 
-			ArrayList<Integer> seatsRowList = (ArrayList) BusSeatsGrid.get(seatRowIndexes.get(i));
+			ArrayList<Integer> seatsRowList = (ArrayList<Integer>) BusSeatsGrid.get(seatRowIndexes.get(i));
 
 			boolean onboard = false;
 
@@ -143,14 +144,14 @@ public class BoardingSequenceFinder {
 
 	public static HashMap<String, List<Integer>> replaceBusSeatBookingWithZero(int bookingId,
 			HashMap<Integer, List<String>> bookingsMap, HashMap<String, List<Integer>> BusSeats) {
-		ArrayList<String> bookingSeatsList = (ArrayList) bookingsMap.get(bookingId);
+		ArrayList<String> bookingSeatsList = (ArrayList<String>) bookingsMap.get(bookingId);
 		for (int bookingSeatIndex = 0; bookingSeatIndex < bookingSeatsList.size(); bookingSeatIndex++) {
 			String bookingSeat = (String) bookingSeatsList.get(bookingSeatIndex);
 			char rowIndex = (char) bookingSeat.charAt(0);
 			int columnSeat = Character.getNumericValue(bookingSeat.charAt(1));
 			int columnSeatIndex = columnSeat - 1;
 
-			ArrayList indexSeatsList = (ArrayList) BusSeats.get(String.valueOf(rowIndex));
+			ArrayList<Integer> indexSeatsList = (ArrayList<Integer>) BusSeats.get(String.valueOf(rowIndex));
 			indexSeatsList.set(columnSeatIndex, 0);
 
 			BusSeats.put(String.valueOf(rowIndex), indexSeatsList);
@@ -162,7 +163,7 @@ public class BoardingSequenceFinder {
 			HashMap<String, List<Integer>> BusSeats, ArrayList<Integer> holdList) {
 
 		boolean onboard = true;
-		ArrayList<String> listOfAllSeatsUnderBookingID = (ArrayList) bookingsMap.get(bookingId);
+		ArrayList<String> listOfAllSeatsUnderBookingID = (ArrayList<String>) bookingsMap.get(bookingId);
 
 		for (int bookingSeatIndex = 0; bookingSeatIndex < listOfAllSeatsUnderBookingID.size(); bookingSeatIndex++) {
 
@@ -171,7 +172,7 @@ public class BoardingSequenceFinder {
 			int columnSeat = Character.getNumericValue(bookingSeat.charAt(1));
 			int columnSeatIndex = columnSeat - 1;
 
-			ArrayList indexSeatsList = (ArrayList) BusSeats.get(String.valueOf(rowIndex));
+			ArrayList<?> indexSeatsList = (ArrayList<?>) BusSeats.get(String.valueOf(rowIndex));
 
 			// Checking Windows Seat
 			if (columnSeatIndex == 0 || columnSeatIndex == 3)
