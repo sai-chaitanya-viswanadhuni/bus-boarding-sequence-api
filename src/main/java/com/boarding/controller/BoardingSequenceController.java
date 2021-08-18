@@ -31,9 +31,9 @@ public class BoardingSequenceController {
 	BoardingSequenceFinder boardingSequenceFinder;
 
 	@GetMapping("/getBoardingSequence/{busID}")
-	public ArrayList<Integer> generateBoardingSequence(@PathVariable Long busID) {
+	public ArrayList<Integer> generateBoardingSequence(@PathVariable Long busID) throws Exception {
 		Bus bus = new Bus();
-		bus = busRepository.findById(busID).orElseThrow();
+		bus = busRepository.findById(busID).orElseThrow(() -> new Exception("Not Found"));
 		List<BusBooking> busBookingList = busBookingRepository.findByBus(bus);
 		return boardingSequenceFinder.findSequence(busBookingList);
 	}

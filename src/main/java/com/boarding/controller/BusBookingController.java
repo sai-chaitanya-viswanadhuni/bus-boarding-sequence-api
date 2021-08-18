@@ -25,7 +25,7 @@ public class BusBookingController {
 	BusBookingService busBookingService;
 
 	@PostMapping("bus/book/tickets")
-	public String bookBusTickets(@RequestBody BusBookingDTO busBookingDetails) {
+	public String bookBusTickets(@RequestBody BusBookingDTO busBookingDetails) throws Exception {
 		System.out.println(busBookingDetails.toString());
 		return busBookingService.bookBusTickets(busBookingDetails);
 	}
@@ -38,7 +38,7 @@ public class BusBookingController {
 	}
 	
 	@GetMapping("bus/bookings/all/{busID}")
-	public List<BusBooking> getAllBusBookingsByBusID(@PathVariable Long busID) {
+	public List<BusBooking> getAllBusBookingsByBusID(@PathVariable Long busID) throws Exception {
 		return busBookingService.getAllBusBookingsByBusID(busID);
 	}
 	

@@ -47,17 +47,17 @@ public class BusBookingService {
 		return busBookingRepository.findById(busBookingID);
 	}
 
-	public String bookBusTickets(BusBookingDTO busBookingDetails) {
+	public String bookBusTickets(BusBookingDTO busBookingDetails) throws Exception {
 
 		BusBooking busBookingData = new BusBooking();
 
 		if (busBookingDetails != null) {
 
 			Long busID = busBookingDetails.getBusID();
-			Bus bus = busRepository.findById(busID).orElseThrow();
+			Bus bus = busRepository.findById(busID).orElseThrow(() -> new Exception("Not Found"));
 
 			Long userID = busBookingDetails.getUserID();
-			User user = userRepository.findById(userID).orElseThrow();
+			User user = userRepository.findById(userID).orElseThrow(() -> new Exception("Not Found"));
 
 			busBookingData.setBus(bus);
 			busBookingData.setUser(user);
@@ -110,9 +110,9 @@ public class BusBookingService {
 		return busBookingRepository.findAll();
 	}
 
-	public List<BusBooking> getAllBusBookingsByBusID(Long busID) {
+	public List<BusBooking> getAllBusBookingsByBusID(Long busID) throws Exception {
 		// TODO Auto-generated method stub
-		Bus bus = busRepository.findById(busID).orElseThrow();
+		Bus bus = busRepository.findById(busID).orElseThrow(() -> new Exception("Not Found"));
 		return busBookingRepository.findByBus(bus);
 	}
 }

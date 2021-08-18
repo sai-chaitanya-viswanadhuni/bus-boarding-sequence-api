@@ -1,7 +1,6 @@
 package com.boarding.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +21,7 @@ public class BusController {
 	BusService busService;
 
 	@GetMapping("/bus/{busID}")
-	public Optional<Bus> getBusByID(@PathVariable Long busID) {
+	public Bus getBusByID(@PathVariable Long busID) throws Exception {
 		return this.busService.getBusByID(busID);
 	}
 
